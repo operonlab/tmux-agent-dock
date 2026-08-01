@@ -169,6 +169,8 @@ placeholder 都保持 **bare** 讓 fzf 自己上引號——名字叫 `$(...)` �
 這不是講究排場。dock 會把 agent 標題與即時畫面放到螢幕上，拿真實機器來錄就等於
 把你在做什麼一起公開。
 
-畫面上的按鍵標籤是事後疊上去的：vhs 只錄畫面不錄按鍵，否則那串方向鍵與 ⏎ 的
-操作看起來會像自己跳的。`docs/keycast.py` 依 `docs/demo.tape` 的時間點把它們畫
-上去。重錄分兩步：先 `vhs docs/demo.tape`，再 `python3 docs/keycast.py`。
+vhs 只錄畫面不錄按鍵，否則那串方向鍵與 ⏎ 的操作看起來會像自己跳的。
+`docs/keycast-bezel.py` 產生 KeyCastr 風格的按鍵 bezel（與 operonlab tmux 家族
+共用同一套元件），`docs/demo-overlay.sh` 再依 tape 的時間點把它們合成到原始畫面
+上。重錄分三步：先 `vhs docs/demo.tape`，再 `python3 docs/keycast-bezel.py`，最後
+`bash docs/demo-overlay.sh`。

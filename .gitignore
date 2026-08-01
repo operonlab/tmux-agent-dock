@@ -1,6 +1,8 @@
 *.log
 *.tsv
 .DS_Store
+# demo build intermediate (vhs raw capture; docs/demo.gif is the composite that ships)
+docs/demo-raw.gif
 # python bytecode embeds the compiler's absolute path
 __pycache__/
 *.pyc

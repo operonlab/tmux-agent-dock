@@ -9,8 +9,12 @@
 # (docs/demo-fixture.sh — fictional projects, fictional prompts, native binaries
 # that only print a canned screen) on an isolated tmux server (socket ad-demo).
 # No real agent title or screen can appear in this recording.
-#   Re-record from the repo root with:  vhs docs/demo.tape
-Output "docs/demo.gif"
+#
+# vhs records the screen but not the keys, so this tape emits docs/demo-raw.gif
+# and docs/demo-overlay.sh composites the KeyCastr-style key bezels on top to
+# produce the docs/demo.gif that ships. Re-record from the repo root with:
+#   vhs docs/demo.tape && python3 docs/keycast-bezel.py && bash docs/demo-overlay.sh
+Output "docs/demo-raw.gif"
 Require tmux
 
 Set Shell "bash"

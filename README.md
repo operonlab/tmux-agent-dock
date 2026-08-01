@@ -185,10 +185,12 @@ That is not decoration. The dock puts agent titles and live screens on screen,
 so a recording made against a real machine would publish whatever you were
 working on.
 
-The keystroke labels are drawn on after the fact: vhs records the screen but not
-the keys, so the arrow-and-⏎ navigation would otherwise look like it happens by
-itself. `docs/keycast.py` overlays them from the timings in `docs/demo.tape`.
-Re-record in two steps: `vhs docs/demo.tape`, then `python3 docs/keycast.py`.
+vhs records the screen but not the keys, so the arrow-and-⏎ navigation would
+otherwise look like it happens by itself. `docs/keycast-bezel.py` renders the
+KeyCastr-style key bezels — the same component the rest of the operonlab tmux
+family uses — and `docs/demo-overlay.sh` composites them onto the raw capture at
+the tape's timestamps. Re-record in three steps: `vhs docs/demo.tape`, then
+`python3 docs/keycast-bezel.py`, then `bash docs/demo-overlay.sh`.
 
 ---
 
