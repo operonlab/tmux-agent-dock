@@ -31,25 +31,29 @@ Sleep 3s
 Show
 
 # The dock: four agents, newest-attention first — the one waiting on you at the
-# top, the preview above showing its screen.
+# top, the preview above showing its screen (a codex on a migration prompt).
 Sleep 2s
 
-# Move down; the preview follows each selection.
+# Move down; the preview follows each selection — the idle one, then a worker.
 Down
-Sleep 1800ms
+Sleep 1700ms
 Down
-Sleep 1800ms
-Down
-Sleep 1800ms
-Up
-Sleep 1500ms
+Sleep 1700ms
 
-# Cycle the sort: attention -> tool.
-Ctrl+S
-Sleep 2500ms
+# Back up to the agent that is waiting on you.
+Up
+Sleep 1200ms
+Up
+Sleep 1400ms
+
+# Enter jumps straight to that pane — now you are at the codex, on the prompt it
+# was blocked on, ready to answer it.
+Enter
+Sleep 3s
 
 Hide
-Type "q"
+Ctrl+B
+Type "d"
 Sleep 400ms
 Type "tmux -L ad-demo kill-server"
 Enter
