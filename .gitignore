@@ -1,0 +1,7 @@
+*.log
+*.tsv
+.DS_Store
+# python bytecode embeds the compiler's absolute path
+__pycache__/
+*.pyc
+.ruff_cache/

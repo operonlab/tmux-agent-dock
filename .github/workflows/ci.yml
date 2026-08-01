@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: shellcheck (-S warning)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Lint shell scripts
+        run: |
+          shellcheck -S warning \
+            agent-dock.tmux \
+            scripts/helpers.sh \
+            scripts/dock.sh \
+            scripts/rows.sh \
+            scripts/teardown.sh \
+            tests/smoke.sh
+
+  smoke:
+    # The scan reads BSD ps/tmux output and the fake-agent panes need a C
+    # compiler; behaviour is asserted on macOS. Linux gets shellcheck above.
+    name: smoke (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tmux + fzf
+        # fzf is what makes the RCE regression test actually run; without it that
+        # check skips (and says so) instead of guarding anything.
+        run: brew install tmux fzf
+      - name: Assert tmux >= 1.9
+        run: |
+          ver="$(tmux -V | awk '{print $2}')"
+          case "$ver" in master|next-*) echo "tmux $ver dev build"; exit 0 ;; esac
+          num="${ver%[a-z]}"; maj="${num%%.*}"; min="${num#*.}"; min="${min%%.*}"
+          if [ "$maj" -lt 1 ] || { [ "$maj" -eq 1 ] && [ "$min" -lt 9 ]; }; then
+            echo "tmux $ver is below 1.9"; exit 1; fi
+          echo "tmux $ver ok"
+      - name: Smoke on an isolated socket
+        run: bash tests/smoke.sh
