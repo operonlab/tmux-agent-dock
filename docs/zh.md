@@ -167,4 +167,8 @@ placeholder 都保持 **bare** 讓 fzf 自己上引號——名字叫 `$(...)` �
 任何真的 CLI——再由 `docs/demo-setup.sh` 在隔離 tmux server 上擺四個。
 
 這不是講究排場。dock 會把 agent 標題與即時畫面放到螢幕上，拿真實機器來錄就等於
-把你在做什麼一起公開。重錄用 `vhs docs/demo.tape`。
+把你在做什麼一起公開。
+
+畫面上的按鍵標籤是事後疊上去的：vhs 只錄畫面不錄按鍵，否則那串方向鍵與 ⏎ 的
+操作看起來會像自己跳的。`docs/keycast.py` 依 `docs/demo.tape` 的時間點把它們畫
+上去。重錄分兩步：先 `vhs docs/demo.tape`，再 `python3 docs/keycast.py`。

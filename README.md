@@ -183,7 +183,12 @@ compiles a tiny native binary that prints a canned screen and blocks, so its
 
 That is not decoration. The dock puts agent titles and live screens on screen,
 so a recording made against a real machine would publish whatever you were
-working on. Re-record with `vhs docs/demo.tape`.
+working on.
+
+The keystroke labels are drawn on after the fact: vhs records the screen but not
+the keys, so the arrow-and-⏎ navigation would otherwise look like it happens by
+itself. `docs/keycast.py` overlays them from the timings in `docs/demo.tape`.
+Re-record in two steps: `vhs docs/demo.tape`, then `python3 docs/keycast.py`.
 
 ---
 
